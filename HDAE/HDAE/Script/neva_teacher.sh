@@ -1,0 +1,54 @@
+#!/usr/bin/env bash
+
+export CUDA_VISIBLE_DEVICES=$1
+export PYTHONPATH="./"
+
+if [ $2 = "boots" ]
+then
+	DATASET='BOOTS'
+	SEEDS='boots'
+	general_asp=5
+elif [ $2 = "bg" ]
+then
+	DATASET='BAGS_AND_CASES'
+	SEEDS='bags_and_cases'
+	general_asp=4
+elif [ $2 = "tv" ]
+then
+	DATASET='TV'
+	SEEDS='tv'
+	general_asp=5
+elif [ $2 = "kb" ]
+then	
+	DATASET='KEYBOARDS'
+	SEEDS='keyboards'
+	general_asp=7
+elif [ $2 = "vc" ]
+then	
+	DATASET='VACUUMS'
+	SEEDS='vacuums'
+	general_asp=5
+elif [ $2 = "bt" ]
+then	
+	DATASET='BLUETOOTH'
+	SEEDS='bluetooth'
+	general_asp=6
+fi
+
+aspects=30
+lr_rate=0.000002
+
+for lr in 0.000001; do
+	expname=hyper_lr${lr}
+	cmd="python3 ./main.py --sumout ./neva/outpt0417_tr/teacher_only/${DATASET}/${expname}/ \
+		--aspect_seeds ./data/seedwords/${SEEDS}.${aspects}-weights.txt --aspect_init_file ./data/seedwords/${SEEDS}.30.txt --general_asp ${general_asp}\
+		--dataset $DATASET --train_type tr_only_neva --student_type hyper --lr ${lr}"
+	echo "Executing $cmd"
+	$cmd
+done
+
+
+# elif hyper_params['train_type'] == 'ts_only_neva': from Train.train_neva import Trainer as Trainer
+# elif hyper_params['train_type'] == 'tr_only_neva': from Train.train_tc_neva import Trainer as Trainer
+# elif hyper_params['train_type'] == 'rec_only_neva': from Train.train_rec_neva import Trainer as Trainer
+# elif hyper_params['train_type'] == 'rec_mt_neva': from Train.train_rec_mt_neva import Trainer as Trainer

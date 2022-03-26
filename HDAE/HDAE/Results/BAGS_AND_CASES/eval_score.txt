@@ -1,0 +1,8 @@
+Epoch = 0 ,f1 score =0.666156202143951
+Epoch = 1 ,f1 score =0.667687595712098
+Epoch = 2 ,f1 score =0.6799387442572741
+Epoch = 3 ,f1 score =0.6753445635528331
+Epoch = 4 ,f1 score =0.669218989280245
+Epoch = 5 ,f1 score =0.664624808575804
+Epoch = 6 ,f1 score =0.664624808575804
+Epoch = 7 ,f1 score =0.6615620214395099
